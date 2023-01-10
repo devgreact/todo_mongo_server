@@ -57,7 +57,7 @@ router.post("/list", (req, res) => {
     sort = { id: 1 };
   }
 
-  Todo.find({})
+  Todo.find({ title: new RegExp(req.body.search) })
     .populate("author")
     .sort(sort)
     .exec()
