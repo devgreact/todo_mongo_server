@@ -135,4 +135,33 @@ router.post("/deleteall", (req, res) => {
     });
 });
 
+// 사용자 제거
+router.post("/userout", (req, res) => {
+  console.log("사용자 삭제 ", req.body);
+  let temp = {
+    uid: req.body.uid,
+  };
+  // mongoose 문서참조
+  User.deleteOne({ uid: req.body.uid })
+    .exec()
+    .then(() => {
+      console.log("사용자 삭제 성공!!!");
+      // 실제 Post Model 업데이트
+      // const todoPost = new Todo(temp);
+      Todo.deleteMany({ uid: req.body.uid })
+        .then(() => {
+          console.log("기록물 삭제 성공!!!");
+          res.status(200).json({ success: true });
+        })
+        .catch((err) => {
+          // 데이터 저장이 실패한 경우
+          console.log(err);
+          res.status(400).json({ success: false });
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 module.exports = router;
