@@ -16,6 +16,7 @@ router.post("/submit", (req, res) => {
     id: req.body.id,
     title: req.body.title,
     completed: req.body.completed,
+    uid: req.body.uid,
     // 여기서 바로 author 를 저장할 수 없다.
     // User Modle 에서 uid 를 이용해서
     // ObjectId 를 알아내고.. 내용을 복사해야
@@ -57,9 +58,11 @@ router.post("/list", (req, res) => {
     sort = { id: 1 };
   }
 
-  Todo.find({ title: new RegExp(req.body.search) })
+  Todo.find({ title: new RegExp(req.body.search), uid: req.body.uid })
     .populate("author")
     .sort(sort)
+    .skip(req.body.skip) // 0 ~ 4, 5 ~ 9, 10~14
+    .limit(5)
     .exec()
     .then((doc) => {
       // console.log(doc);

@@ -5,6 +5,7 @@ const todoSchema = new mongoose.Schema(
     id: Number,
     title: String,
     completed: Boolean,
+    uid: String,
     // objectId 를 통해서 다른 Model 접근
     author: {
       type: mongoose.Schema.Types.ObjectId,
