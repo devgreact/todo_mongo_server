@@ -7,6 +7,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 // const { Todo } = require("./model/TodoModel.js");
 
+var cors = require("cors");
+
 // 개발 인증관련
 const config = require("./config/key.js");
 
@@ -14,6 +16,13 @@ const config = require("./config/key.js");
 const app = express();
 // 포트번호
 const port = 5000;
+
+let corsOptions = {
+  origin: "*", // 출처 허용 옵션
+  credential: true, // 사용자 인증이 필요한 리소스(쿠키 등) 접근
+};
+app.use(cors(corsOptions));
+
 // 고정(Static)된 Path 경로를 설정한다.
 app.use(express.static(path.join(__dirname, "./build")));
 // 요청이 들어오면 json 사용 및 url 인코딩 진행해줌
