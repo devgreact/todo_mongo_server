@@ -138,16 +138,12 @@ router.post("/deleteall", (req, res) => {
 // 사용자 제거
 router.post("/userout", (req, res) => {
   console.log("사용자 삭제 ", req.body);
-  let temp = {
-    uid: req.body.uid,
-  };
   // mongoose 문서참조
   User.deleteOne({ uid: req.body.uid })
     .exec()
     .then(() => {
       console.log("사용자 삭제 성공!!!");
-      // 실제 Post Model 업데이트
-      // const todoPost = new Todo(temp);
+      // 실제 Post Model 삭ㅈ[]
       Todo.deleteMany({ uid: req.body.uid })
         .then(() => {
           console.log("기록물 삭제 성공!!!");
