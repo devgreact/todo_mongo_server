@@ -32,6 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 // Post 관련 Router 연결
 app.use("/api/post", require("./router/Post.js"));
 // User 관련 Router 연결
+
 app.use("/api/user", require("./router/User.js"));
 
 // 서버가 요청을 받아들이기 위해서 대기 중.

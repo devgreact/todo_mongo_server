@@ -70,10 +70,15 @@ router.post("/list", (req, res) => {
       Todo.count({
         title: new RegExp(req.body.search),
         uid: req.body.uid,
-      }).then((number) => {
-        // console.log(number);
-        res.status(200).json({ success: true, initTodo: doc, total: number });
-      });
+      })
+        .then((number) => {
+          // console.log(number);
+          res.status(200).json({ success: true, initTodo: doc, total: number });
+        })
+        .catch((error) => {
+          console.log(error);
+          res.status(400).json({ success: false });
+        });
     })
     .catch((error) => {
       console.log(error);
